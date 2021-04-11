@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XctAvatarViewDemoApp.Pages.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    Title="Avatar View Demo">
+
+    <RefreshView
+        x:Name="refreshView"
+        Command="{Binding LoadUsersInfoCommand}"
+        IsRefreshing="{Binding IsBusy}"
+        RefreshColor="RosyBrown">
+        <CollectionView
+            Margin="10,0"
+            ItemsSource="{Binding Users}"
+            VerticalScrollBarVisibility="Never">
+            <CollectionView.EmptyView>
+                <ContentView>
+                        <Label
+                            HorizontalOptions="Center"
+                            Text="No Users Found"
+                            VerticalOptions="Center" />
+                </ContentView>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        Padding="5"
+                        ColumnDefinitions="Auto,*"
+                        RowDefinitions="Auto,Auto">
+                        <xct:AvatarView
+                            Grid.Row="0"
+                            CornerRadius="4"
+                            Size="40"
+                            Text="{Binding Name.Initials}" />
+
+                        <StackLayout Grid.Column="1" VerticalOptions="Start">
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Name.First}" />
+                                        <Span Text=" " />
+                                        <Span Text="{Binding Name.Last}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+
+                        <BoxView
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            HeightRequest="1"
+                            HorizontalOptions="FillAndExpand"
+                            Color="LightGray" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </RefreshView>
+
+</ContentPage>
